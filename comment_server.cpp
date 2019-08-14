@@ -82,14 +82,13 @@ public:
     friend ostream& operator << (ostream& output, const HttpResponse& resp) {
         output << "HTTP/1.1 " << static_cast<int>(resp.code_)
                << " " << resp.GetVerboseCode() << "\n";
-        for (const auto& header : resp.headers_) {
-            output << header.name << ": " << header.value << '\n';
+        for (const auto& [name, value] : resp.headers_) {
+            output << name << ": " << value << '\n';
         }
         if (!resp.content_.empty()) {
-            output << "Content-Length: " << resp.GetContentLength() << '\n';
+            output << "Content-Length: " << resp.content_.size() << '\n';
         }
-        output << '\n' << resp.content_;
-        return output;
+        return output << '\n' << resp.content_;
     }
 
 private:
@@ -108,10 +107,6 @@ private:
         default:
             return {};
         }
-    }
-
-    size_t GetContentLength() const {
-        return content_.size();
     }
 };
 
