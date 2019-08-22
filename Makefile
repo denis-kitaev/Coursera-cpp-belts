@@ -1,5 +1,5 @@
 CC=g++
-CFLAGS=-pthread -std=c++1z
+CFLAGS=-pthread -std=c++1z -Wall
 
 all:
-	$(CC) $(CFLAGS) synchronized_2.cpp -o coursera_cpp
+	$(CC) $(CFLAGS) zoo.cpp -o coursera_cpp
